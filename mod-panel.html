@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .control-panel, .toggle-container, .toggle-switch, .popup, .toast {
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    .control-panel {
+      width: 100%;
+      max-width: 500px;
+      background: #1e1e2f;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      animation-delay: 0.5s;
+    }
+
+    .control-panel h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .toggle-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      animation-delay: 1s;
+    }
+
+    .toggle-label {
+      font-size: 18px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+
+    .toggle-switch input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 30px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 24px;
+      width: 24px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(30px);
+    }
+
+    /* تنسيق الإشعارات */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4caf50;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+      opacity: 0;
+      animation: fadeInToast 1s ease-out forwards;
+      z-index: 9999;
+    }
+
+    .toast-error {
+      background-color: #f44336;
+    }
+
+    .toast-success {
+      background-color: #4caf50;
+    }
+
+    .toast-info {
+      background-color: #2196F3;
+    }
+
+    /* تصميم نافذة التغيير */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .popup {
+      background-color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+    }
+
+    .popup h3 {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .popup textarea {
+      width: 100%;
+      height: 60px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+
+    .popup button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      margin: 10px;
+    }
+
+    .popup button#saveVisaStatus {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .popup button#closeVisaPopup {
+      background-color: #f44336;
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInToast {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeOutToast {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(-100px);
+      }
+    }
+
+    @keyframes fadeOutPopup {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="control-panel">
+    <h2>لوحة تحكم الإدارة</h2>
+    
+    <!-- زر وضع الصيانة -->
+    <div class="toggle-container">
+      <span class="toggle-label">وضع الصيانة</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="maintenanceToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- زر تغيير حالة الفيزا -->
+    <div class="toggle-container">
+      <span class="toggle-label">تغيير حالة الفيزا</span>
+      <button id="changeVisaStatus" style="padding: 10px 20px; background: #4caf50; border: none; border-radius: 5px; color: #fff; cursor: pointer;">تغيير</button>
+    </div>
+  </div>
+
+  <!-- نافذة تغيير حالة الفيزا -->
+  <div class="popup-overlay" id="visaPopupOverlay">
+    <div class="popup">
+      <h3>تغيير حالة الفيزا</h3>
+      <textarea id="visaStatusInput" placeholder="أدخل الحالة الجديدة"></textarea>
+      <button id="saveVisaStatus">حفظ</button>
+      <button class="close" id="closeVisaPopup">إغلاق</button>
+    </div>
+  </div>
+
+  <script>
+    // التحكم في وضع الصيانة
+    const maintenanceToggle = document.getElementById("maintenanceToggle");
+
+    // عند تغيير حالة وضع الصيانة
+    maintenanceToggle.addEventListener("change", function() {
+      const isMaintenanceMode = maintenanceToggle.checked;
+
+      // تحديث الحالة في localStorage
+      localStorage.setItem("isMaintenanceMode", isMaintenanceMode);
+
+      // إظهار إشعار
+      showToast(
+        isMaintenanceMode
+          ? "تم تفعيل وضع الصيانة. سيتم عرض رسالة الصيانة في الصفحة."
+          : "تم إيقاف وضع الصيانة. الصفحة ستعود للوضع الطبيعي.",
+        isMaintenanceMode ? "success" : "error"
+      );
+    });
+
+    // نافذة تغيير حالة الفيزا
+    const visaPopupOverlay = document.getElementById("visaPopupOverlay");
+    const changeVisaStatus = document.getElementById("changeVisaStatus");
+    const closeVisaPopup = document.getElementById("closeVisaPopup");
+    const saveVisaStatus = document.getElementById("saveVisaStatus");
+    const visaStatusInput = document.getElementById("visaStatusInput");
+
+    // عرض النافذة
+    changeVisaStatus.addEventListener("click", function() {
+      visaPopupOverlay.style.display = "flex"; // تغيير العرض إلى flex ليظهر النافذة
+    });
+
+    // إغلاق النافذة مع تأثير fade-out
+    closeVisaPopup.addEventListener("click", function() {
+      visaPopupOverlay.style.animation = "fadeOutPopup 1s forwards"; // إضافة تأثير الإغلاق
+      setTimeout(() => {
+        visaPopupOverlay.style.display = "none";
+      }, 1000); // تأخير إخفاء النافذة بعد التلاشي
+    });
+
+    // حفظ حالة الفيزا
+    saveVisaStatus.addEventListener("click", function() {
+      const newStatus = visaStatusInput.value;
+
+      if (!newStatus.trim()) {
+        alert("يرجى إدخال الحالة الجديدة.");
+        return;
+      }
+
+      // تحديث ملف visa.json (محاكاة)
+      console.log("تم تغيير حالة الفيزا إلى:", newStatus);
+      alert("تم حفظ الحالة الجديدة بنجاح.");
+
+      // إغلاق النافذة مع تأثير fade-out
+      visaPopupOverlay.style.animation = "fadeOutPopup 1s forwards";
+      setTimeout(() => {
+        visaPopupOverlay.style.display = "none";
+      }, 1000);
+    });
+
+    // دالة لعرض الإشعار
+    function showToast(message, type) {
+      const toast = document.createElement("div");
+      toast.classList.add("toast");
+
+      if (type === "error") {
+        toast.classList.add("toast-error");
+      } else if (type === "success") {
+        toast.classList.add("toast-success");
+      } else {
+        toast.classList.add("toast-info");
+      }
+
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      // إخفاء الإشعار بعد 3 ثوانٍ مع تأثير fade-out
+      setTimeout(() => {
+        toast.style.animation = "fadeOutToast 1s ease-in forwards";
+        setTimeout(() => {
+          toast.remove();
+        }, 1000); // إزالة الإشعار بعد التلاشي
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

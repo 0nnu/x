@@ -1,0 +1,199 @@
+/* إعدادات عامة */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding-bottom: 60px; /* لتوفير مساحة أسفل الصفحة */
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.card {
+  background-color: #2a2a2a;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 18px;
+  color: #bbb;
+  margin: 5px 0;
+}
+.countdown-timer {
+  background-color: #1f1f1f;
+  color: #00bfff;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  position: relative; /* وضع العداد بشكل صحيح */
+  left: 0; /* محاذاة العداد */
+}
+
+#timer {
+  font-size: 30px;
+  font-weight: bold;
+}
+/* المعلومات تحت الفيزا */
+.footer-info {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.footer-link {
+  color: #1E90FF; /* اللون الأزرق */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.discord-logo {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  .card {
+    padding: 15px;
+  }
+}
+/* زر التوجه إلى الصفحة الثانية */
+.second-page-button-container {
+  margin-top: 30px;
+}
+
+.btn-second-page {
+  background: linear-gradient(45deg, #4CAF50, #45a049); /* تدرج لوني */
+  color: white;
+  padding: 15px 40px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px; /* جعل الزر دائري الشكل */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; /* تأثير التغيير عند المرور على الزر */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل */
+  text-decoration: none;
+}
+
+.btn-second-page:hover {
+  background: linear-gradient(45deg, #45a049, #4CAF50); /* التدرج العكسي عند المرور */
+  transform: scale(1.1); /* تكبير الزر عند المرور عليه */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* تأثير الظل مع تكبير الزر */
+}
+
+.btn-second-page:active {
+  transform: scale(1.05); /* تصغير الزر بشكل طفيف عند الضغط عليه */
+}
+/* حاوية الأزرار لتحديد مكان الزر */
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* لضمان أن الأزرار ستكون في المنتصف */
+  margin-top: 30px;
+}
+
+/* زر التوجه إلى صفحة Nitro Links */
+.nitro-page-button-container {
+  margin-top: 20px; /* فاصل بين الأزرار */
+}
+
+.btn-nitro-page {
+  background: linear-gradient(45deg, #FF6347, #FF4500); /* تدرج لوني جديد */
+  color: white;
+  padding: 15px 40px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+.btn-nitro-page:hover {
+  background: linear-gradient(45deg, #FF4500, #FF6347); /* التدرج العكسي عند المرور */
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-nitro-page:active {
+  transform: scale(1.05);
+}
+#counter {
+  font-size: 40px;
+  text-align: center;
+  color: transparent;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  background: linear-gradient(135deg, #ff0000, #ff7f00, #00ff00, #0000ff, #8a2be2);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: fadeInAnimation 1s ease-in-out, rgbFade 5s linear infinite alternate;
+}
+
+/* تنسيق عدد الزيارات */
+#visits-counter {
+  font-size: 50px;
+  text-align: center;
+  color: transparent;
+  position: fixed;
+  bottom: 70px; /* تحديد المسافة مباشرة فوق العداد */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  background: linear-gradient(135deg, #ff0000, #ff7f00, #00ff00, #0000ff, #8a2be2);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: fadeInAnimation 1s ease-in-out, rgbFade 5s linear infinite alternate;
+}
+
+/* أنيميشن للظهور التدريجي */
+@keyframes fadeInAnimation {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* أنيميشن لتدرج الألوان مع الحركة */
+@keyframes rgbFade {
+  0% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}

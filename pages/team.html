@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../assets/smile.png">
+    <title>Discord Visa Team</title>
+    <script>
+        // منع القائمة عند النقر بزر الماوس الأيمن
+        document.addEventListener("contextmenu", function (e) {
+            if (e.target.tagName === "IMG") {
+                e.preventDefault();
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container text-center">
+        <h3 style="color: #ffffff; margin: 20px">Team</h3>
+        <hr style="border: 1px solid #ffffff">
+        <div class="row equal d-flex justify-content-center" style="margin: 20px" id="owners_list">
+        </div>
+    </div>
+
+    <!-- رابط أسفل الصفحة -->
+    <div class="redirect-button">
+        <button onclick="redirectToWebsite()">العودة إلى الصفحة الرئيسية</button>
+    </div>
+
+
+    <footer class="mastfoot mb-auto">
+        <div class="container-fluid mb-auto">
+            <div class="row d-flex justify-content-center">
+                <div class="">
+                    <p style="font-size: 19px; padding: 0px; margin: 0px;"><a href=""
+                            style="text-decoration: none; color: white;"></a></br>Copyright ©
+                        2025. All
+                        rights reserved.</br>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/team.js"></script>
+</body>
+
+</html>

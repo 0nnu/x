@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقييم الموقع</title>
+    <link rel="icon" href="../assets/smile.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2F3136;
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #202225;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #40444B;
+        }
+
+        .chat-header h3 {
+            margin-left: 20px;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .chat-box {
+            background-color: #2F3136;
+            height: calc(100vh - 130px);
+            overflow-y: auto;
+            padding: 10px;
+            position: relative;
+        }
+
+        .message {
+            background-color: #40444B;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .message:hover {
+            background-color: #4E5156;
+        }
+
+        .message img {
+            border-radius: 50%;
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+        }
+
+        .message-content {
+            color: #DCDDDE;
+            font-size: 14px;
+        }
+
+        .author {
+            font-weight: bold;
+            color: #B9BBBE;
+        }
+
+        .message-input-container {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #40444B;
+            border-top: 1px solid #2F3136;
+        }
+
+        .message-input {
+            background-color: #2F3136;
+            border: none;
+            color: #B9BBBE;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .send-btn {
+            background-color: #3BA55C;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .send-btn:hover {
+            background-color: #2C9E49;
+        }
+
+        .message-input:focus, .message-input:active {
+            outline: none;
+            border: 1px solid #7289DA;
+        }
+
+        .rating-link {
+            margin: 10px;
+            text-align: center;
+            color: #7289DA;
+            font-size: 14px;
+        }
+
+        .rating-link a {
+            color: #7289DA;
+            text-decoration: none;
+        }
+
+        .rating-link a:hover {
+            color: #99AAB5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="chat-header">
+        <h3># آرائكم</h3>
+        <div>
+            <span style="color: #7289DA;">متصل</span>
+        </div>
+    </div>
+
+    <div class="rating-link">
+        <p>للاطلاع على التقييمات اضغط على</p>
+        <a href="https://discord.com/channels/1310700848069742682/1310749180947468308" target="_blank">قناة التقييمات</a>
+    </div>
+
+    <div class="chat-box" id="chat-box">
+        <div class="message">
+            <img src="https://cdn.discordapp.com/avatars/373925075940016150/a_ab4e419425024c24e3eccc6f3cc97518.gif?size=128" alt="user">
+            <div>
+                <span class="author">@『𝐋𝟕』 YAMI 🇹🇳🇵🇸 !</span>
+                <div class="message-content">بصراحة أسطوري من أفضل من تعاملت معهم أذ لم يكن أفضل ☝🏼🤍💯</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="message-input-container">
+        <input type="text" class="message-input" id="name-input" placeholder="اكتب اسمك هنا..." required>
+        <textarea class="message-input" id="message-input" placeholder="اكتب التقييم هنا..." maxlength="200" required></textarea>
+        <button class="send-btn" onclick="sendMessage()">إرسال</button>
+    </div>
+
+    <script>
+        var lastSentTime = {};
+        const webhookUrl = 'https://discord.com/api/webhooks/1310749249595768943/xmq0wgUjK4CHqrDb72K_MKOx96RUexR5dpExDk8DCunKm4GDYBklF0zbfCBp_JraZ9gs';
+
+        function sendMessage() {
+            var nameInput = document.getElementById('name-input');
+            var messageInput = document.getElementById('message-input');
+            var name = nameInput.value.trim();
+            var message = messageInput.value.trim();
+
+            // منع إرسال التقييم إذا كان الحقول فارغة
+            if (!name || !message) {
+                alert('يرجى كتابة الاسم والتقييم');
+                return;
+            }
+
+            var userId = name.toLowerCase();
+            var currentTime = new Date().getTime();
+
+            // منع التكرار أو السبام
+            if (lastSentTime[userId] && currentTime - lastSentTime[userId] < 60000) { // 60 ثانية
+                return;
+            }
+
+            lastSentTime[userId] = currentTime;
+
+            // إضافة التقييم إلى الشات
+            var chatBox = document.getElementById('chat-box');
+            var newMessage = document.createElement('div');
+            newMessage.classList.add('message');
+            newMessage.innerHTML = 
+                `<img src="https://cdn.discordapp.com/avatars/1116721728555593908/a_61fb67811560cb3795fddceecc8d5190.gif?size=80" alt="user">
+                <div>
+                    <span class="author">@${name}</span>
+                    <div class="message-content">${message}</div>
+                </div>`;
+            chatBox.appendChild(newMessage);
+
+            // إرسال التقييم إلى الويبهوك
+            var payload = {
+                embeds: [{
+                    title: "تقييم قادم من",
+                    color: 0x7289DA, // اللون الأزرق مثل ديسكورد
+                    thumbnail: {
+                        url: "https://cdn.discordapp.com/avatars/994609882944778301/a_1a913cb3c29b21f80a7e9e28e9f54d60.png?size=128" // صورة جانبية للتقييم
+                    },
+                    fields: [
+                        {
+                            name: "الاسم",
+                            value: name,
+                            inline: false
+                        },
+                        {
+                            name: "التقييم",
+                            value: message,
+                            inline: false
+                        },
+                    ],
+                    footer: {
+                        text: "نشكرك على تقييمنا  نقدر اهتمامك لنا"
+                    }
+                }]
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            // مسح الحقول بعد الإرسال
+            nameInput.value = '';
+            messageInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+</body>
+</html>

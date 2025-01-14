@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>روابط Nitro</title>
+  <link rel="icon" href="../assets/smile.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden; /* منع التمرير الجانبي */
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      padding: 20px;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #f4a261;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .link-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .link-item {
+      width: 30%;
+      margin: 10px 0;
+      transition: transform 0.3s ease;
+    }
+
+    .link-item a {
+      text-decoration: none;
+      color: #ff6347;
+      font-size: 18px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background-color: #333;
+      display: block;
+      transition: background-color 0.3s, color 0.3s, transform 0.2s;
+      text-align: center;
+    }
+
+    .link-item a:hover {
+      background-color: #ff6347;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    .link-item a:active {
+      transform: scale(0.98);
+    }
+
+    .discord-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #7289da;
+      color: white;
+      font-size: 16px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .discord-button:hover {
+      background-color: #5b6eae;
+    }
+
+    .discord-button img {
+      width: 16px;
+      margin-right: 8px;
+    }
+
+    .long-button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: #ff6347;
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .long-button:hover {
+      background-color: #f4a261;
+    }
+
+    /* تحديث: إخفاء العنصر الجانبي */
+    .animated-side {
+      display: none; /* إخفاء العنصر الجانبي بالكامل */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>7ro8 | هذه الروابط مسؤول عنها</h1>
+
+    <div class="button-container">
+      <a href="https://discord.gg/a9eUbRnyQu" class="discord-button" target="_blank">
+        <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord Logo">
+        7ro8
+      </a>
+    </div>
+
+    <ul class="link-list" id="link-list"></ul>
+
+    <div class="button-container">
+      <a href="https://visaapp.org/admin" class="long-button" target="_blank">
+        العودة للصفحة الرئيسية
+      </a>
+    </div>
+  </div>
+
+  <script>
+    fetch('nitro_links.json')
+      .then(response => response.json())
+      .then(data => {
+        const linkList = document.getElementById('link-list');
+        data.nitro_links.forEach((link, index) => {
+          const listItem = document.createElement('li');
+          listItem.classList.add('link-item');
+          listItem.innerHTML = `<a href="${link}" target="_blank">رابط نيترو 1</a>`;
+          linkList.appendChild(listItem);
+        });
+      })
+      .catch(error => console.error('Error loading nitro.json:', error));
+  </script>
+
+</body>
+</html>

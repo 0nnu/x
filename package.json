@@ -1,0 +1,20 @@
+{
+  "name": "my-web-project",
+  "version": "1.0.0",
+  "description": "مشروع ويب يحتوي على CSS وHTML وجافاسكريبت.",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server",
+    "build": "echo \"script.js\""
+  },
+  "author": "v_tu",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "keywords": [],
+  "dependencies": {
+    "axios": "^1.7.9",
+    "express": "^4.21.2"
+  }
+}

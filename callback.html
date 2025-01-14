@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>التحقق من الحساب</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #2C2F33;
+      color: white;
+      text-align: center;
+      padding-top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h1>يرجى الانتظار... نتحقق من صلاحية حسابك</h1>
+  
+  <script>
+    // استخراج كود الـ Authorization من الرابط
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    if (code) {
+      // إعدادات OAuth الخاصة بـ Discord
+      const CLIENT_ID = '1251340482110554162';
+      const CLIENT_SECRET = 'c6GIV0AY-QbM6mDkSEh9DfpPzDRw-I76';
+      const REDIRECT_URI = 'https://cb79a30b-2b1c-4805-b9bc-76916f0980f3-00-ru7475z9hb5t.pike.replit.dev/callback.html';
+
+      // إرسال طلب للحصول على Access Token باستخدام Authorization Code
+      fetch('https://discord.com/api/oauth2/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          code: code,
+          grant_type: 'authorization_code',
+          redirect_uri: REDIRECT_URI,
+          scope: 'identify',
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        const accessToken = data.access_token;
+
+        // إرسال طلب للحصول على بيانات المستخدم باستخدام الـ Access Token
+        return fetch('https://discord.com/api/v10/users/@me', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+      })
+      .then(response => response.json())
+      .then(userData => {
+        const userId = userData.id; // معرّف المستخدم
+
+        // التحقق من وجود معرّف المستخدم في ملف passwords.json
+        fetch('passwords.json')
+          .then(response => response.json())
+          .then(passwords => {
+            if (passwords.includes(userId)) {
+              // إذا كان الـ ID موجودًا، توجيه المستخدم إلى صفحة الداشبورد
+              window.location.href = 'dashboard.html';
+            } else {
+              // إذا لم يكن موجودًا، العودة إلى صفحة تسجيل الدخول
+              window.location.href = 'index.html';
+            }
+          });
+      })

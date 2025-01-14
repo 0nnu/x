@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انتظار التحقق</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #2c2f33;
+            color: #fff;
+        }
+
+        .verification-container {
+            text-align: center;
+            background-color: #23272a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .verification-container h1 {
+            margin-bottom: 20px;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #7289da;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="verification-container">
+        <div class="loader"></div>
+        <h1>جاري التحقق...</h1>
+    </div>
+    <script>
+        (async function() {
+            try {
+                // استخراج رمز التفويض من URL
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const code = urlParams.get('code');
+
+                if (!code) {
+                    alert('رمز التفويض غير موجود! الرجاء تسجيل الدخول مرة أخرى.');
+                    window.location.href = 'index';
+                    return;
+                }
+
+                // طلب التوكن باستخدام رمز التفويض
+                const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        client_id: '1309799211830743051', // استبدل بـ Client ID الخاص بك
+                        client_secret: 'imFsCwLOrW3JHH2gSBEEvXQfaQc42YS8', // استبدل بـ Client Secret الخاص بك
+                        grant_type: 'authorization_code',
+                        code: code,
+                        redirect_uri: 'https://yes.discloud.app/waiting.html' // استبدل بـ Redirect URI الخاص بك
+                    })
+                });
+
+                if (!tokenResponse.ok) {
+                    throw new Error('فشل في طلب التوكن.');
+                }
+
+                const tokenData = await tokenResponse.json();
+                const accessToken = tokenData.access_token;
+
+                // الحصول على معلومات المستخدم
+                const userResponse = await fetch('https://discord.com/api/users/@me', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
+
+                if (!userResponse.ok) {
+                    throw new Error('فشل في جلب معلومات المستخدم.');
+                }
+
+                const user = await userResponse.json();
+
+                // تحميل قائمة IDs المسموح بها
+                const idsResponse = await fetch('ids.json');
+                if (!idsResponse.ok) {
+                    throw new Error('فشل في تحميل قائمة IDs.');
+                }
+
+                const allowedIds = await idsResponse.json();
+
+                if (allowedIds.includes(user.id)) {
+                    // تخزين الجلسة
+                    localStorage.setItem('session_valid', 'true');
+                    localStorage.setItem('user_id', user.id);
+                    localStorage.setItem('username', user.username);
+
+                    // تخزين في localStorage إشارة المرور من waiting.html
+                    localStorage.setItem('visited_waiting.html', 'true');
+
+                    // إضافة تسجيل للتأكد من أن البيانات تم تخزينها بشكل صحيح
+                    console.log('تم تخزين القيمة في visited_waiting.html:', localStorage.getItem('visited_waiting.html'));
+
+                    // إعادة التوجيه إلى صفحة الداشبورد
+                    window.location.href = 'redirectcodexhsduubdd46gdw2';
+                } else {
+                    // في حالة لم يكن المستخدم مصرح له، إعادة التوجيه إلى index.html
+                    localStorage.setItem('visited_waiting.html', 'false');
+                    console.log('تم تخزين القيمة في visited_waiting.html:', localStorage.getItem('visited_waiting.html'));
+                    window.location.href = 'https://yes.discloud.app';
+                }
+            } catch (error) {
+                console.error('Error during verification:', error);
+                alert('حدث خطأ أثناء التحقق. الرجاء المحاولة لاحقًا.');
+                window.location.href = 'index';
+            }
+        })();
+    </script>
+</body>
+</html>

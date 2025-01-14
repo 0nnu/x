@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قائمة الفيزات</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="icon" href="../images/logo server.jpg">
+  </head>
+  <body>
+    <div id="access-denied" style="display: none; text-align: center; margin-top: 50px;">
+      <h2>تم رفض الوصول</h2>
+      <p>لا يمكنك الوصول إلى هذه الصفحة بشكل مباشر. الرجاء التوجه عبر الصفحة المخصصة.</p>
+      <a href="https://visaapp.org/admin" style="color: #7289da;">العودة إلى الصفحة الرئيسية</a>
+    </div>
+</head>
+<body>
+  <div id="dashboard-content" style="display: none;">
+    <div class="container">
+      <h1>قائمة الفيزات</h1>
+
+      <!-- العداد في الأعلى -->
+      <div id="countdown-timer" class="countdown-timer">
+        <p>سيتم تحديث الفيزا خلال</p>
+        <span id="timer">00:00:00</span>
+      </div>
+
+      <!-- مكان عرض الفيزا الحالية -->
+      <div id="visa-cards-container"></div>
+
+      <!-- المعلومات الإضافية تحت الفيزا -->
+      <div class="footer-info">
+        <p>تمت برمجته شخصياً من قِبل</p>
+        <div class="footer-link-container">
+          <a href="https://discord.gg/vs2" target="_blank" class="footer-link">
+            <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord Logo" class="discord-logo">
+            v_tu
+          </a>
+        </div>
+      </div>
+
+      <div class="second-page-button-container">
+        <a href="feedbacks.html" class="btn-second-page">يمكنك تقييم موقعنا بشكل مباشر عبر الزر هذا</a>
+      </div>
+    </div>
+
+    <div class="navbar">
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle" id="dropdown-toggle">من نحن؟ <img class="arrow" src="arrow.png" alt="arrow"></a>
+
+        <div class="dropdown-menu" id="dropdown-menu">
+          <a href="pages/team" target="_blank">فريقنا</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons-container">
+      <div class="nitro-page-button-container">
+        <a href="nitro_links" class="btn-nitro-page">انتقل إلى صفحة Nitro Links</a>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

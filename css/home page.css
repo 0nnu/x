@@ -1,0 +1,310 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@200;400;700&display=swap");
+:root {
+    /* Colors */
+    --primary-color: #9333EA;
+    --primary-hover: #7928CA;
+    --background-color: #0a0a0f;
+    --text-color: #ffffff;
+    --subtitle-color: #999;
+    --border-color: rgba(153, 153, 153, 0.151);
+    --premium-color: #FFD700;
+    --premium-bg-hover: #ffd90049;
+    --blurred-bg: rgba(2, 2, 2, 0.274);
+    --profile-bg: #9233ea98;
+    --button-secondary-bg: rgba(255, 255, 255, 0.1);
+    --feature-bg: rgba(255, 255, 255, 0.027);
+    --glow-bg: rgba(147, 51, 234, 0.2);
+    /* Spacing */
+    --padding-global: 6rem 20rem 2rem;
+    --nav-margin: 1rem 20rem;
+    --nav-padding: 5px 20px;
+    --section-spacing: 15rem;
+    --section-spacing2: 6rem;
+    --element-spacing: 1.5rem;
+    /* Border Radius */
+    --radius-full: 888px;
+    --radius-large: 50%;
+    --radius-medium: 20px;
+    --radius-small: 8px;
+    /* Font */
+    --font-family: "Tajawal", sans-serif;
+    --font-size-h1: 4.5rem;
+    --font-size-normal: 1rem;
+    /* Transitions */
+    --transition: all 0.3s ease;
+    --transform-hover: translateY(-2px);
+    --transform-hover-large: translateY(-5px);
+}
+
+h1 {
+    margin-top: var(--section-spacing2);
+    font-size: var(--font-size-h1);
+    margin-bottom: var(--element-spacing);
+    line-height: 1.2;
+}
+
+h1 span {
+    color: var(--primary-hover);
+}
+
+.subtitle {
+    color: var(--subtitle-color);
+    max-width: 600px;
+    margin-bottom: var(--element-spacing);
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+.buttons {
+    display: flex;
+    gap: var(--element-spacing);
+    margin-top: var(--element-spacing);
+}
+
+.features {
+    margin-top: 4rem;
+    width: 100%;
+}
+
+.feature-list {
+    display: flex;
+    justify-content: space-around;
+    gap: var(--element-spacing);
+    margin-top: var(--element-spacing);
+}
+
+.feature {
+    background: var(--feature-bg);
+    padding: var(--element-spacing);
+    border-radius: var(--radius-small);
+    text-align: center;
+    transition: var(--transition);
+    border-left: 5px solid transparent;
+}
+
+.feature:hover {
+    transform: var(--transform-hover-large);
+    border-color: var(--primary-hover);
+}
+
+.feature i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: var(--element-spacing);
+}
+
+.trusted-servers {
+    margin-top: var(--section-spacing);
+    width: 100%;
+    overflow: hidden;
+}
+
+/* إعداد الـ server-list */
+
+.server-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+/* تخصيص شريط التمرير على المتصفحات التي تدعمه */
+
+.server-list::-webkit-scrollbar {
+    width: 6px;
+    /* عرض شريط التمرير */
+}
+
+.server-list::-webkit-scrollbar-track {
+    background: #2f2e31;
+    /* لون الخلفية شريط التمرير */
+}
+
+.server-list::-webkit-scrollbar-thumb {
+    background-color: #888;
+    /* لون المسمار (العنصر الذي يتحرك) */
+    border-radius: 10px;
+    /* جعل المسمار مدوراً */
+}
+
+.server {
+    text-align: center;
+    padding: 1rem;
+}
+
+.server img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--radius-large);
+    margin-bottom: var(--element-spacing);
+}
+
+/* يمكن إضافة بعض التأثيرات اللطيفة هنا */
+
+.server h3,
+.server p {
+    color: #fff;
+}
+
+/* Common Sections Styling */
+
+section {
+    margin-top: var(--section-spacing2);
+    padding: 4rem 2rem;
+    border-radius: var(--radius-medium);
+    background: var(--feature-bg);
+    border: 1px solid var(--border-color);
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+/* Identity System Section */
+
+.identity-content,
+.defamation-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    padding: 2rem;
+}
+
+.identity-text,
+.defamation-text {
+    flex: 1;
+}
+
+.identity-image,
+.defamation-image {
+    flex: 1;
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.identity-image img,
+.defamation-image img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-medium);
+    transition: var(--transition);
+}
+
+.identity-image:hover img,
+.defamation-image:hover img {
+    transform: var(--transform-hover);
+}
+
+.identity-features,
+.defamation-features {
+    list-style: none;
+    margin-top: 1.5rem;
+}
+
+.identity-features li,
+.defamation-features li {
+    margin: 1rem 0;
+    padding-right: 1.5rem;
+    position: relative;
+}
+
+.identity-features li:before,
+.defamation-features li:before {
+    content: "•";
+    color: var(--primary-color);
+    position: absolute;
+    right: 0;
+}
+
+/* Careers System */
+
+.careers-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.career-card {
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    padding: 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-medium);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.career-card:hover {
+    transform: var(--transform-hover);
+    border-color: var(--primary-color);
+}
+
+.career-card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Seller Registration */
+
+.payment-methods {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 3rem 0;
+}
+
+.payment-card {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    padding: 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-medium);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.payment-card:hover {
+    transform: var(--transform-hover);
+    border-color: var(--primary-color);
+}
+
+.payment-card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    border-radius: var(--radius-small);
+}
+
+.register-btn {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 3rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.register-btn:hover {
+    background: var(--primary-hover);
+    transform: var(--transform-hover);
+}
